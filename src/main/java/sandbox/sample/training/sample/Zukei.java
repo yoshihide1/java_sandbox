@@ -10,7 +10,7 @@ public class Zukei {
         showFormula(circle);
         showArea(circle);
 
-        var rectangle = new Rectangle(10, 4);
+        var rectangle = new Rectangle(0.2, -4);
         showFormula(rectangle);
         showArea(rectangle);
 

@@ -5,6 +5,14 @@ package sandbox.sample.training.sample.zukei;
  */
 public record Rectangle(double height, double width) implements Shape {
 
+    public Rectangle(double height, double width) {
+        if (height < 0 || width < 0) {
+            throw new IllegalArgumentException("0以上の値を設定してください。");
+        }
+        this.height = height;
+        this.width = width;
+    }
+
     public double area() {
         return this.height * this.width;
     }
