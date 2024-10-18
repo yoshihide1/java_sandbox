@@ -1,41 +1,48 @@
 package sandbox.sample.model;
 
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Objects;
 
-
-public class Money {
-    private final int amount;
-    // 通過の単位
-    private final Currency currency;
-
+public record Money(int amount, Currency currency) {
 
     /**
-     * コンストラクタ
+     * コンパクトコンストラクタ
+     * 
      * @param amount
      * @param currency
      */
-    public Money(final int amount,final Currency currency){
-        if(amount < 0) {
+    public Money {
+        if (amount < 0) {
             throw new IllegalArgumentException("0以上の値を設定してください。");
         }
-        if(Objects.isNull(currency)) {
+        if (Objects.isNull(currency)) {
             throw new IllegalArgumentException("通過の単位を設定してください");
         }
-        this.amount = amount;
-        this.currency = currency;
+    }
+
+    /**
+     * コンストラクタ
+     * 
+     * @param other
+     * @return
+     */
+    public Money(final int amount) {
+        this(amount, Currency.getInstance(Locale.JAPAN));
     }
 
     /**
      * 加算する
+     * 
      * @param other
      * @return
      */
     public Money add(final Money other) {
-        if(!other.currency.equals(this.currency)){
+        if (!other.currency.equals(this.currency)) {
             throw new IllegalArgumentException("通過の単位が違います");
         }
         var added = other.amount + this.amount;
         return new Money(added, this.currency);
     }
+
 }
