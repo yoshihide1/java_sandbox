@@ -1,8 +1,4 @@
-package sandbox.sample.training.sample;
-
-import sandbox.sample.training.sample.zukei.Circle;
-import sandbox.sample.training.sample.zukei.Rectangle;
-import sandbox.sample.training.sample.zukei.Shape;
+package sandbox.sample.training.sample.zukei;
 
 public class Zukei {
     public static void main(String[] args) {
