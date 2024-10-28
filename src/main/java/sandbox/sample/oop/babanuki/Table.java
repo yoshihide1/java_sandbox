@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * テーブルを表すクラス
  */
-public class Table {
+class Table {
 
     /** 捨てられたカード */
     private List<Card[]> disposedCards = new ArrayList<>();

@@ -2,11 +2,12 @@ package sandbox.sample.oop.babanuki;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 手札を表すクラス
  */
-public class Hand {
+class Hand {
     private List<Card> hand = new ArrayList<Card>();
 
     /**
@@ -20,8 +21,7 @@ public class Hand {
      * カードを引く
      */
     Card pickCard() {
-        var pickedCard = hand.remove(0);
-        return pickedCard;
+        return hand.remove(0);
     }
 
     /**
@@ -29,11 +29,9 @@ public class Hand {
      */
     void shuffle() {
         var number = hand.size();
-
-        for (int i = 0; i < number; i++) {
-            var position = (int) Math.random() * number;
+        for (int i = 0; i < number * 2; i++) {
+            var position = (int) (Math.random() * number);
             var pickedCard = hand.remove(position);
-
             hand.add(pickedCard);
         }
     }
@@ -47,31 +45,42 @@ public class Hand {
 
     /**
      * 同じ数のカードを探す。
-     * ない場合はNull
+     * ない場合はempty
      */
-    Card[] findSameNumberCard() {
-        var numberOfCards = this.hand.size();
-        Card[] sameCards = null; // ArrayListでEmptyとかにすべき？
+    Optional<Card[]> findSameNumberCard() {
+        if (this.hand.isEmpty()) {// 0の場合はなにもしない
+            return Optional.empty();
+        }
 
-        if (numberOfCards > 0) {
-            // 最後に追加されたカードを取得する
-            var lastIndex = numberOfCards - 1;
-            var lastAddedCard = hand.get(lastIndex);
-            // 最後に追加されたカードの数字を取得する
-            var lastAddedCardNumber = lastAddedCard.getNumber();
+        // 最後に追加されたカードを取得する
+        var lastIndex = getNumberOfCards() - 1;
+        var lastAddedCard = hand.get(lastIndex);
+        // 最後に追加されたカードの数字を取得する
+        var lastAddedCardNumber = lastAddedCard.getNumber();
+        var sameCards = removeHandCard(lastIndex, lastAddedCardNumber);
 
-            for (int i = 0; i < lastIndex; i++) {
-                var card = hand.get(i);
-                if (card.getNumber() == lastAddedCardNumber) {
-                    // 最後に追加されたカードを同じカードが見つかった場合その組み合わせを代入する
-                    sameCards = new Card[2];
-                    sameCards[0] = hand.remove(lastIndex);
-                    sameCards[1] = hand.remove(i);
-                    break;
-                }
+        return sameCards;
+    }
+
+    /**
+     * 同じカードがあった場合に捨てる
+     * 
+     * @param lastIndex
+     * @param lastAddedCardNumber
+     * @return
+     */
+    private Optional<Card[]> removeHandCard(int lastIndex, int lastAddedCardNumber) {
+        Card[] sameCards = null;
+        for (int i = 0; i < lastIndex; i++) {
+            var card = hand.get(i);
+            if (card.getNumber() == lastAddedCardNumber) {
+                sameCards = new Card[2];
+                sameCards[0] = hand.remove(lastIndex);
+                sameCards[1] = hand.remove(i);
+                return Optional.of(sameCards);
             }
         }
-        return sameCards;
+        return Optional.empty();
     }
 
     /**
@@ -83,12 +92,11 @@ public class Hand {
         if (size > 0) {
             for (int i = 0; i < size; i++) {
                 var card = hand.get(i);
-
                 stringBuffer.append(card);
                 stringBuffer.append(" ");
             }
         }
         return stringBuffer.toString();
-
     }
+
 }

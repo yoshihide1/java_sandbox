@@ -13,9 +13,7 @@ public class ObjectOldMail {
         var yamada = new Player("山田", master, table);
         var saito = new Player("斎藤", master, table);
 
-        master.registerPlayer(murata);
-        master.registerPlayer(yamada);
-        master.registerPlayer(saito);
+        master.registerPlayers(murata, yamada, saito);
 
         // トランプを生成する
         var trump = createTrump();
@@ -27,12 +25,13 @@ public class ObjectOldMail {
     private static Hand createTrump() {
         var trump = new Hand();
         for (int number = 1; number <= 13; number++) {
-            trump.addCard(new Card(Card.SUIT_CLUB, number));
-            trump.addCard(new Card(Card.SUIT_DIAMOND, number));
-            trump.addCard(new Card(Card.SUIT_HEART, number));
-            trump.addCard(new Card(Card.SUIT_SPADE, number));
+            var cardNumber = new CardNumber(number);
+            trump.addCard(new Card(CardSuit.CLUB, cardNumber));
+            trump.addCard(new Card(CardSuit.DIAMOND, cardNumber));
+            trump.addCard(new Card(CardSuit.HEART, cardNumber));
+            trump.addCard(new Card(CardSuit.SPADE, cardNumber));
         }
-        trump.addCard(new Card(0, Card.JOKER));
+        trump.addCard(new Card(CardSuit.JOKER, CardNumber.JOKER));
         return trump;
     }
 }

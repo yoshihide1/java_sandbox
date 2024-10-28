@@ -3,13 +3,13 @@ package sandbox.sample.oop.babanuki;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Master {
+class Master {
     private List<Player> players = new ArrayList<>();
 
     /**
-     * トランプを進行役の手札をして渡す
+     * トランプを進行役の手札にして渡す（準備）
      */
-    public void prepareGame(Hand cards) {
+    void prepareGame(Hand cards) {
         System.out.println("【カードを配ります】");
         cards.shuffle();
 
@@ -27,7 +27,7 @@ public class Master {
     /**
      * ゲームを開始する
      */
-    public void startGame() {
+    void startGame() {
         System.out.println("【ばば抜きを開始します】");
 
         // プレイヤーの人数を取得する
@@ -47,7 +47,7 @@ public class Master {
     /**
      * 上がり宣言をする
      */
-    public void declareWin(Player winner) {
+    void declareWin(Player winner) {
         System.out.println(winner + "さんが上がりました！");
 
         // 上がったプレイヤーをリストから外す
@@ -63,7 +63,9 @@ public class Master {
     /**
      * ゲームに参加するプレイヤーを登録する
      */
-    public void registerPlayer(Player player) {
-        players.add(player);
+    void registerPlayers(Player... players) {
+        for (var player : players) {
+            this.players.add(player);
+        }
     }
 }

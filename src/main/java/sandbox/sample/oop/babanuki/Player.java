@@ -6,7 +6,7 @@ public class Player {
 
     private Table table;
 
-    private Hand myHand = new Hand();
+    private Hand myHand;
 
     private String name;
 
@@ -14,30 +14,20 @@ public class Player {
         this.name = name;
         this.master = master;
         this.table = table;
+        this.myHand = new Hand();
     }
 
     /**
      * 順番を指名する
      */
     void play(Player nextPlayer) {
-        // 次のプレイヤーに手札を出してもらう
         var nextHand = nextPlayer.showHand();
-
-        // 相手の手札からカードを引く
         var pickedCard = nextHand.pickCard();
-
-        // 引いた結果を表示
         System.out.println(this + ":" + nextPlayer + "さんから " + pickedCard + " を引きました");
-
-        // 引いたカードを自分の手札に加え同じカードがあったら捨てる
         dealCard(pickedCard);
-
-        // 手札が0になったかどうか調べる
         if (this.myHand.getNumberOfCards() == 0) {
-            // 進行役に上がりを宣言する
             master.declareWin(this);
         } else {
-            // 現在の手札を表示する
             System.out.println(this + ":残りの手札は " + this.myHand + "です");
         }
     }
@@ -48,21 +38,19 @@ public class Player {
      * @return
      */
     Hand showHand() {
-        // この時点で残り位置枚なら上りになるので宣言する
+        // この時点で残り1枚なら上りになるので宣言する
         if (this.myHand.getNumberOfCards() == 1) {
             master.declareWin(this);
         }
-
-        // 見せる前にシャッフルする
         this.myHand.shuffle();
         return this.myHand;
     }
 
     /**
-     * カードを受け取る
+     * 進行役からカードを受け取る
+     * 受け取ったときに同じカードがあれば捨てる
      */
     void receiveCard(Card card) {
-        // 引いたカードを自分の手札に加え、同じ数のカードがあったら捨てる
         dealCard(card);
     }
 
@@ -73,12 +61,10 @@ public class Player {
      */
     private void dealCard(Card card) {
         this.myHand.addCard(card);
-
         var sameCards = this.myHand.findSameNumberCard();
-        // 同じカードの組み合わせが存在した場合
-        if (sameCards != null) {
+        if (sameCards.isPresent()) {
             System.out.print(this + ":");
-            table.disposeCard(sameCards);
+            table.disposeCard(sameCards.get());
         }
     }
 
