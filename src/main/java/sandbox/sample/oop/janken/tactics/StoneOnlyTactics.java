@@ -1,13 +1,13 @@
 package sandbox.sample.oop.janken.tactics;
 
-import sandbox.sample.oop.janken.Player;
+import sandbox.sample.oop.janken.Hand;
 
 /** グー大好き戦略 */
 public class StoneOnlyTactics implements Tactics {
 
     @Override
-    public int readTactics() {
-        return Player.STONE;
+    public Hand readTactics() {
+        return Hand.STONE;
     }
 
 }

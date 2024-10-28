@@ -1,5 +1,7 @@
 package sandbox.sample.oop.janken.tactics;
 
+import sandbox.sample.oop.janken.Hand;
+
 /**
  * じゃんけんの戦略インターフェース
  */
@@ -10,5 +12,5 @@ public interface Tactics {
      * 
      * @return
      */
-    public int readTactics();
+    public Hand readTactics();
 }

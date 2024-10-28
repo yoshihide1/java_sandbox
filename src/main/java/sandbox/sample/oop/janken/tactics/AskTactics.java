@@ -3,7 +3,7 @@ package sandbox.sample.oop.janken.tactics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import sandbox.sample.oop.janken.Player;
+import sandbox.sample.oop.janken.Hand;
 
 /**
  * 標準入力によりじゃんけんの手をユーザーに聞く戦略クラス
@@ -11,32 +11,26 @@ import sandbox.sample.oop.janken.Player;
 public class AskTactics implements Tactics {
 
     @Override
-    public int readTactics() {
+    public Hand readTactics() {
         var br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("じゃんけんの手を入力してください");
         System.out.println("0: グー, 1: チョキ, 2: パー");
-        System.out.println("? ");
+        System.out.print("? ");
 
-        int hand = 0;
+        int handNumber;
 
         while (true) {
             try {
                 var inputString = br.readLine();
-                hand = Integer.parseInt(inputString);
+                handNumber = Integer.parseInt(inputString);
+                return Hand.fromValue(handNumber);
 
-                if (hand == Player.STONE || hand == Player.SCISSORS || hand == Player.PAPER) {
-                    break;
-                } else {
-                    System.out.println("入力が正しくありません。再度入力してください");
-                    System.out.print("? ");
-                }
             } catch (Exception ex) {
                 System.out.println("入力が正しくありません。再度入力してください");
                 System.out.print("? ");
             }
         }
-        return hand;
     }
 
 }

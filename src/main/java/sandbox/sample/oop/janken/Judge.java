@@ -1,5 +1,7 @@
 package sandbox.sample.oop.janken;
 
+import java.util.Optional;
+
 /**
  * 審判クラス
  */
@@ -8,18 +10,18 @@ public class Judge {
   /**
    * じゃんけんを開始する
    */
-  public void startJanken(Player player1, Player player2) {
+  public void startJanken(Player player1, Player player2, int roundCount) {
     System.out.println("【ジャンケン開始】\n");
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < roundCount; i++) {
       System.out.println(String.format("【%s回戦目】", i + 1));
 
-      Player winner = judgeJanken(player1, player2);
+      var winner = judgeJanken(player1, player2);
 
-      if (winner != null) {
+      if (winner.isPresent()) {
         System.out.println(String.format("%sが勝ちました\n" + //
-            "", winner.getName()));
-        winner.notifyResult(true);
+            "", winner.get().getName()));
+        winner.get().notifyResult(true);
       } else {
         System.out.println("引き分けです\n");
       }
@@ -29,8 +31,8 @@ public class Judge {
     var finalWinner = judgeFinalWinner(player1, player2);
     System.out.println(String.format("%d 対 %dで", player1.getWinCount(), player2.getWinCount()));
 
-    if (finalWinner != null) {
-      System.out.println(String.format("%sの勝ちです\n", finalWinner.getName()));
+    if (finalWinner.isPresent()) {
+      System.out.println(String.format("%sの勝ちです\n", finalWinner.get().getName()));
     } else {
       System.out.println("引き分けです\n");
     }
@@ -42,9 +44,9 @@ public class Judge {
    * 
    * @param player1
    * @param player2
-   * @return
+   * @return 引き分けの場合はempty
    */
-  private Player judgeJanken(Player player1, Player player2) {
+  private Optional<Player> judgeJanken(Player player1, Player player2) {
     Player winner = null;
     var hand1 = player1.showHand();
     var hand2 = player2.showHand();
@@ -53,16 +55,12 @@ public class Judge {
     printHand(hand2);
 
     // プレイヤー１が勝つ場合
-    if ((hand1 == Player.STONE && hand2 == Player.SCISSORS) || (hand1 == Player.SCISSORS && hand2 == Player.PAPER)
-        || (hand1 == Player.PAPER && hand2 == Player.STONE)) {
+    if (hand1.beats(hand2)) {
       winner = player1;
-
-    } else if ((hand2 == Player.STONE && hand1 == Player.SCISSORS)
-        || (hand2 == Player.SCISSORS && hand1 == Player.PAPER)
-        || (hand2 == Player.PAPER && hand1 == Player.STONE)) {
+    } else if (hand2.beats(hand1)) {
       winner = player2;
     }
-    return winner;
+    return Optional.ofNullable(winner);
 
   }
 
@@ -73,18 +71,18 @@ public class Judge {
    * @param player2
    * @return
    */
-  private Player judgeFinalWinner(Player player1, Player player2) {
-    Player winner = null;
+  private Optional<Player> judgeFinalWinner(Player player1, Player player2) {
 
     var winCount1 = player1.getWinCount();
     var winCount2 = player2.getWinCount();
 
+    Player winner = null;
     if (winCount1 > winCount2) {
       winner = player1;
     } else if (winCount2 > winCount1) {
       winner = player2;
     }
-    return winner;
+    return Optional.ofNullable(winner);
   }
 
   /**
@@ -92,19 +90,8 @@ public class Judge {
    * 
    * @param hand
    */
-  private void printHand(int hand) {
-    switch (hand) {
-      case Player.STONE:
-        System.out.println("グー");
-        break;
-      case Player.SCISSORS:
-        System.out.println("チョキ");
-        break;
-      case Player.PAPER:
-        System.out.println("パー");
-      default:
-        break;
-    }
+  private void printHand(Hand hand) {
+    System.out.println(hand.getName());
 
   }
 }

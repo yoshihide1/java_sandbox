@@ -2,41 +2,33 @@ package sandbox.sample.oop.janken;
 
 import sandbox.sample.oop.janken.tactics.Tactics;
 
-public class Player {
-
-  /**
-   * じゃんけんの手を表す
-   * TODO ENUMにすべきかも
-   */
-  public static final int STONE = 0;
-  public static final int SCISSORS = 1;
-  public static final int PAPER = 2;
-
-  private Tactics tactics;
+class Player {
 
   /**
    * プレイヤーの名前
    */
-  private String name;
+  private final String name;
+
+  /**
+   * 戦略
+   */
+  private final Tactics tactics;
 
   private int winCount;
 
-  Player(String name) {
+  Player(String name, Tactics cyclicTactics) {
     this.name = name;
+    this.tactics = cyclicTactics;
   }
 
   String getName() {
     return this.name;
   }
 
-  void setTactics(Tactics tactics) {
-    this.tactics = tactics;
-  }
-
   /**
    * じゃんけんの手を出す
    */
-  int showHand() {
+  Hand showHand() {
     var hand = this.tactics.readTactics();
     return hand;
 

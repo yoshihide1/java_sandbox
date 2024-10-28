@@ -13,13 +13,9 @@ public class ObjectJanken {
   public static void main(String[] args) {
     var judge = new Judge();
 
-    var murata = new Player("村田さん");
-    var murataTactics = new CyclicTactics();
-    murata.setTactics(murataTactics);
-    var yamada = new Player("山田さん");
-    var yamadaTactics = new RandomTactics();
-    yamada.setTactics(yamadaTactics);
+    var murata = new Player("村田さん", new CyclicTactics());
+    var yamada = new Player("山田さん", new RandomTactics());
 
-    judge.startJanken(murata, yamada);
+    judge.startJanken(murata, yamada, 10);
   }
 }
