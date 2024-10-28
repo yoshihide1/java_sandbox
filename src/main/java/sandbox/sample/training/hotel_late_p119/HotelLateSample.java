@@ -11,6 +11,6 @@ public class HotelLateSample {
 
     private static void show(HotelRates hotelRates) {
         System.out.println(hotelRates.fee().amount());
-        System.out.println(hotelRates.busySeasonFee().amount());
+        System.out.println(hotelRates.busySeasonFee().toString());
     }
 }

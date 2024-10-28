@@ -1,5 +1,7 @@
 package sandbox.sample.oop.janken;
 
+import sandbox.sample.oop.janken.tactics.Tactics;
+
 public class Player {
 
   /**
@@ -10,6 +12,8 @@ public class Player {
   public static final int SCISSORS = 1;
   public static final int PAPER = 2;
 
+  private Tactics tactics;
+
   /**
    * プレイヤーの名前
    */
@@ -17,32 +21,31 @@ public class Player {
 
   private int winCount;
 
-  public Player(String name) {
+  Player(String name) {
     this.name = name;
   }
 
-  public String getName() {
+  String getName() {
     return this.name;
+  }
+
+  void setTactics(Tactics tactics) {
+    this.tactics = tactics;
   }
 
   /**
    * じゃんけんの手を出す
    */
-  public int showHand() {
-    var randomNumber = Math.random() * 3;
-    if (randomNumber < 1) {
-      return STONE;
-    }
-    if (randomNumber < 2) {
-      return SCISSORS;
-    }
-    return PAPER;
+  int showHand() {
+    var hand = this.tactics.readTactics();
+    return hand;
+
   }
 
   /**
    * 審判から勝敗を聞く
    */
-  public void notifyResult(boolean result) {
+  void notifyResult(boolean result) {
     if (result) {
       this.winCount++;
     }
@@ -51,7 +54,7 @@ public class Player {
   /**
    * 勝った回数を取得する
    */
-  public int getWinCount() {
+  int getWinCount() {
     return this.winCount;
   }
 }

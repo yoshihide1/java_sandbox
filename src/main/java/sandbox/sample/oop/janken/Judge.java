@@ -27,6 +27,7 @@ public class Judge {
     System.out.println("【ジャンケン終了】\n");
 
     var finalWinner = judgeFinalWinner(player1, player2);
+    System.out.println(String.format("%d 対 %dで", player1.getWinCount(), player2.getWinCount()));
 
     if (finalWinner != null) {
       System.out.println(String.format("%sの勝ちです\n", finalWinner.getName()));
