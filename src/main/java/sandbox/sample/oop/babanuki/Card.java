@@ -32,6 +32,49 @@ public class Card {
      * カードの文字列を見る
      */
     public String toString() {
+        var stringBuffer = new StringBuffer();
+
+        // スートを表す
+        if (this.number > 0) {
+            switch (this.suit) {
+                case 1:
+                    stringBuffer.append("S:");
+                    break;
+                case 2:
+                    stringBuffer.append("D:");
+                    break;
+                case 3:
+                    stringBuffer.append("C:");
+                    break;
+                case 4:
+                    stringBuffer.append("H:");
+                    break;
+                default:
+                    break;
+            }
+            // 数字を表す
+            switch (this.number) {
+                case 1:
+                    stringBuffer.append("A");
+                    break;
+                case 10:
+                    stringBuffer.append("T");
+                    break;
+                case 11:
+                    stringBuffer.append("J");
+                    break;
+                case 12:
+                    stringBuffer.append("Q");
+                case 13:
+                    stringBuffer.append("K");
+                default:
+                    stringBuffer.append(this.number);
+                    break;
+            }
+        } else {
+            stringBuffer.append("JK");
+        }
+        return stringBuffer.toString();
 
     }
 
