@@ -2,14 +2,12 @@ package sandbox.sample.oop.framework.trump;
 
 public class Joker extends Card {
 
-    private static final String NAME = "JOKER";
-
     /**
      * コンストラクタ
      * デフォルトはスート無しとして扱う
      */
     public Joker() {
-        super(0, 0);
+        super(CardSuit.JOKER, 0);
     }
 
     /**
@@ -22,7 +20,7 @@ public class Joker extends Card {
     /**
      * スートを変更する
      */
-    public void setSuit(int suit) { // 値オブジェクトに変える？
+    public void setSuit(CardSuit suit) {
         this.suit = suit;
     }
 
@@ -30,7 +28,7 @@ public class Joker extends Card {
      * カードを文字列で表現する
      */
     public String toString() {
-        return NAME;
+        return CardSuit.JOKER.value();
     }
 
 }

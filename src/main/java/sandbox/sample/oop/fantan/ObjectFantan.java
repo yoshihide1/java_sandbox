@@ -1,12 +1,13 @@
 package sandbox.sample.oop.fantan;
 
 import sandbox.sample.oop.framework.trump.Card;
+import sandbox.sample.oop.framework.trump.CardSuit;
 import sandbox.sample.oop.framework.trump.Hand;
 
 public class ObjectFantan {
 
     public static void main(String[] args) {
-        var master = new FantanMaster();
+        var master = new FantanMaster();// 進行役
         var table = new FantanTable();
         var rule = new FantanRule();
 
@@ -29,10 +30,10 @@ public class ObjectFantan {
     private static Hand createTrump() {
         var trump = new Hand();
         for (var number = 1; number <= Card.CARD_NUM; number++) {
-            trump.addCard(new Card(Card.SUIT_CLUB, number));
-            trump.addCard(new Card(Card.SUIT_DIAMOND, number));
-            trump.addCard(new Card(Card.SUIT_HEART, number));
-            trump.addCard(new Card(Card.SUIT_SPADE, number));
+            trump.addCard(new Card(CardSuit.CLUB, number));
+            trump.addCard(new Card(CardSuit.DIAMOND, number));
+            trump.addCard(new Card(CardSuit.HEART, number));
+            trump.addCard(new Card(CardSuit.SPADE, number));
         }
         return trump;
 

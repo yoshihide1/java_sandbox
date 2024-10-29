@@ -19,7 +19,7 @@ public class FantanTable implements Table {
     public void putCard(Card[] card) {
         var number = card[0].getNumber();
         var suit = card[0].getSuit();
-        this.table[suit - 1][number - 1] = card[0];
+        this.table[suit.number() - 1][number - 1] = card[0];
 
     }
 

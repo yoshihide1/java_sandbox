@@ -1,6 +1,7 @@
 package sandbox.sample.oop.fantan;
 
 import sandbox.sample.oop.framework.trump.Card;
+import sandbox.sample.oop.framework.trump.CardSuit;
 import sandbox.sample.oop.framework.trump.Hand;
 import sandbox.sample.oop.framework.trump.Rule;
 import sandbox.sample.oop.framework.trump.Table;
@@ -44,8 +45,8 @@ public class FantanRule implements Rule {
      * @param number
      * @return 存在する場合はtrue
      */
-    private boolean isThereCard(Table table, int suit, int number) {
-        var tableCard = table.getCards()[suit - 1][number - 1];
+    private boolean isThereCard(Table table, CardSuit suit, int number) {
+        var tableCard = table.getCards()[suit.number() - 1][number - 1];
         return tableCard != null;
     }
 
