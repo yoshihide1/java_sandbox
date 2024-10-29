@@ -25,6 +25,7 @@ public abstract class Player {
         this.master = master;
         this.table = table;
         this.rule = rule;
+        this.myHand = new Hand();
     }
 
     /**

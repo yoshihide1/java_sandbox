@@ -46,12 +46,6 @@ public class Hand {
      * シャッフルする
      */
     void shuffle() {
-        // var number = hand.size();
-        // for (int i = 0; i < number * 2; i++) {
-        // var position = (int) (Math.random() * number);
-        // var pickedCard = hand.remove(position);
-        // hand.add(pickedCard);
-        // }
         Collections.shuffle(this.hand);
     }
 
@@ -66,18 +60,7 @@ public class Hand {
      * 手札にあるカードを文字列で表現する
      */
     public String toString() {
-        return this.hand.stream().map(Object::toString).collect(Collectors.joining(" : "));
-        // var stringBuffer = new StringBuffer();
-        // var size = this.hand.size();
-        // if (size > 0) {
-        // for (int i = 0; i < size; i++) {
-        // var card = hand.get(i);
-        // stringBuffer.append(card);
-        // stringBuffer.append(" ");
-        // }
-        // }
-        // return stringBuffer.toString();
-
+        return this.hand.stream().map(Object::toString).collect(Collectors.joining(":"));
     }
 
 }

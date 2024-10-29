@@ -10,5 +10,5 @@ public interface Table {
     /**
      * カードを見る
      */
-    public Card[] getCards();// TODO Listじゃだめなのか？
+    public Card[][] getCards();// TODO Listじゃだめなのか？
 }

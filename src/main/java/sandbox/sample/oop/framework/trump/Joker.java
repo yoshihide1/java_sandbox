@@ -9,20 +9,20 @@ public class Joker extends Card {
      * デフォルトはスート無しとして扱う
      */
     public Joker() {
-        super(CardSuit.EMPTY, CardNumber.JOKER);
+        super(0, 0);
     }
 
     /**
      * 数を変更する
      */
-    public void setNumber(CardNumber number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
     /**
      * スートを変更する
      */
-    public void setSuit(CardSuit suit) {
+    public void setSuit(int suit) { // 値オブジェクトに変える？
         this.suit = suit;
     }
 
