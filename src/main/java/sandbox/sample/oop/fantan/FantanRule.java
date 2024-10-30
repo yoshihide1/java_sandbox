@@ -1,5 +1,7 @@
 package sandbox.sample.oop.fantan;
 
+import java.util.Optional;
+
 import sandbox.sample.oop.framework.trump.Card;
 import sandbox.sample.oop.framework.trump.CardSuit;
 import sandbox.sample.oop.framework.trump.Hand;
@@ -14,8 +16,7 @@ public class FantanRule implements Rule {
      * @return 出せるカードがない場合はnullを返す
      */
     @Override
-    public Card[] findCandidate(Hand hand, Table table) {
-        Card[] candidate = null;
+    public Optional<Card[]> findCandidate(Hand hand, Table table) {
 
         var numberOfHand = hand.getNumberOfCards();
         for (var position = 0; position < numberOfHand; position++) {
@@ -28,12 +29,10 @@ public class FantanRule implements Rule {
             var rightNumber = (number != Card.CARD_NUM) ? number + 1 : 1;
 
             if (isThereCard(table, suit, leftNumber) || isThereCard(table, suit, rightNumber)) {
-                candidate = new Card[1];
-                candidate[0] = hand.pickCard(position);
-                break;
+                return Optional.of(new Card[] { hand.pickCard(position) });
             }
         }
-        return candidate;
+        return Optional.empty();
 
     }
 

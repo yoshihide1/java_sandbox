@@ -40,9 +40,9 @@ public class FantanPlayer extends Player {
     public void play(Player nextPlayer) {
         System.out.println(" " + this.myHand);
         var candidate = rule.findCandidate(super.myHand, super.table);
-        if (candidate != null) {
-            System.out.println(" " + candidate[0] + "を置きました。");
-            super.table.putCard(candidate);
+        if (candidate.isPresent()) {
+            System.out.println(" " + candidate.get()[0] + "を置きました。");
+            super.table.putCard(candidate.get());
             System.out.println(this.table);
 
             if (this.myHand.getNumberOfCards() == 0) {
