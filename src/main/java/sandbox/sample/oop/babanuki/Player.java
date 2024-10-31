@@ -6,7 +6,7 @@ public class Player {
 
     private Table table;
 
-    private Hand myHand;
+    private Hand myHand = new Hand();
 
     private String name;
 
@@ -14,7 +14,6 @@ public class Player {
         this.name = name;
         this.master = master;
         this.table = table;
-        this.myHand = new Hand();
     }
 
     /**

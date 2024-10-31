@@ -45,7 +45,7 @@ public class Hand {
     /**
      * シャッフルする
      */
-    void shuffle() {
+    public void shuffle() {
         Collections.shuffle(this.hand);
     }
 

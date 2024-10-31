@@ -15,7 +15,7 @@ public abstract class Player {
     protected Table table;
 
     /** 手札 */
-    protected Hand myHand;
+    protected Hand myHand = new Hand();
 
     /** ルール */
     protected Rule rule;
@@ -25,7 +25,6 @@ public abstract class Player {
         this.master = master;
         this.table = table;
         this.rule = rule;
-        this.myHand = new Hand();
     }
 
     /**
